@@ -1,4 +1,4 @@
-// Programação SARUÊ - Sumô categoria 500g \ 10cm com PWM:
+// ## Programação SARUÊ - Sumô categoria 500g \ 10cm com PWM ##
 // Autor: Marcio Figueiredo Garcia
 // Co-autores:
 //    - Allan Gomes

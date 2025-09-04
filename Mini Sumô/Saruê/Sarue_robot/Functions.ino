@@ -1,4 +1,4 @@
-// Programação SARUÊ - Sumô categoria 500g \ 10cm com PWM:
+// ## Programação SARUÊ - Sumô categoria 500g \ 10cm com PWM ##
 // Autor: Marcio Figueiredo Garcia
 // Co-autores:
 //    - Allan Gomes
@@ -8,8 +8,8 @@
 // http://www.expertrobots.com.br
 // Copyright Expert Robots, 2025.
 // Robotics as a form of education. enjoy!
-//OBSERVAÇÃO: AO PROGRAMAR O ROBÔ, CONSIDERE A FRENTE DO ROBÔ PARA FRENTE DA TELA DO COMPUTADOR
-//EXEMPLO: A PLACA DO SARUE E DO CARIJÓ SÃO IGUAIS, ENTÃO SE O ROBÔ ESTÁ DE FRENTE PARA A TELA DO COMPUTADOR A CHAVE DEEP SWITCH ESTÁ NO SEU LADO ESQUERDO.
+// OBSERVAÇÃO: AO PROGRAMAR O ROBÔ, CONSIDERE A FRENTE DO ROBÔ PARA FRENTE DA TELA DO COMPUTADOR
+// EXEMPLO: A PLACA DO SARUE E DO CARIJÓ SÃO IGUAIS, ENTÃO SE O ROBÔ ESTÁ DE FRENTE PARA A TELA DO COMPUTADOR A CHAVE DEEP SWITCH ESTÁ NO SEU LADO ESQUERDO.
 
 #include <QTRSensors.h>
 
