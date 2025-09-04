@@ -45,6 +45,9 @@ void setup()
   // Inicializa IR
   IrReceiver.begin(IR_PIN, ENABLE_LED_FEEDBACK);
 
+  // Define o Led embutido como saída
+  pinMode(LED_BUILTIN, OUTPUT);
+
   Serial.begin(9600);
   Serial.println(F("Robo aguardando comando IR para ligar..."));
 }
@@ -57,34 +60,11 @@ void loop(){
     Serial.print(F("Codigo IR recebido: 0x"));
     Serial.println(code, HEX);
 
-    if (code == IR_CODE_TOGGLE) {
-      enabled = !enabled;
-      if (!enabled) parar();
-      Serial.println(enabled ? F("ROBO LIGADO") : F("ROBO DESLIGADO"));
-      delay(200); // debounce
-    }
+    estrategias(code);
+    Serial.println(stage, DEC);
+
     IrReceiver.resume();
   }
-
-  // --- Se desligado, não faz nada ---
-  if (!enabled) {
-    parar();
-    return;
-  }
  
-  frente();
-  linha();
-    
-  if(digitalRead(IRD)==LOW)
-  {
-    direita();
-  }
-  if(digitalRead(IRE)==LOW)
-  {
-    esquerda();
-  }
-    if(digitalRead(IRF)==LOW)
-  {
-    frente_forte();
-  }
+  combate();
 }

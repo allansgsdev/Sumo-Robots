@@ -60,9 +60,19 @@ void esquerda() {
   drive(-SPEED_TURN, SPEED_TURN);
 }
 
+void esquerda_forte() {
+  // gira para a ESQUERDA: esquerda ré, direita frente
+  drive(-SPEED_BOOST, SPEED_BOOST);
+}
+
 void direita() {
   // gira para a DIREITA: esquerda frente, direita ré
   drive(SPEED_TURN, -SPEED_TURN);
+}
+
+void direita_forte() {
+  // gira para a DIREITA: esquerda frente, direita ré
+  drive(SPEED_BOOST, -SPEED_BOOST);
 }
 
 void parar() {
@@ -100,5 +110,119 @@ void linha()
   direita();
   delay(250);
   frente();
+  }
+}
+
+// ==================== CONTAGEM DE SEGUNDOS ====================
+void contagem(int time)
+{
+  const int timeS = time/1000;
+  if (!enabled)
+      {
+        Serial.print("Preparado para a luta. Aguardando os ");
+        Serial.print(tempoInicial/1000, DEC);
+        Serial.println("s para iniciar.");
+        for(int i = timeS; i>=1; i--)
+        {
+          Serial.println(i, DEC);
+          digitalWrite(LED_BUILTIN, HIGH);
+          delay(i>=1 ? 1000/2 : i*1000/2);
+          digitalWrite(LED_BUILTIN, LOW);
+          delay(i>=1 ? 1000/2 : i*1000/2);
+        }
+        Serial.println("GO!");
+      }
+}
+
+// ==================== INICAR COMBATE ====================
+void start()
+{
+  contagem(tempoInicial); // Delay de 5s para iniciar (Conforme regra do campeonato);
+  enabled = !enabled;
+  if (!enabled) parar();
+  Serial.println(enabled ? F("ROBO LIGADO") : F("ROBO DESLIGADO"));
+  delay(200); // debounce
+}
+
+// ==================== ESTRATÉGIAS DE COMBATE ====================
+void lateralE()
+{
+  Serial.println("Estratégia 'Socialista' acionada.");
+  start();
+  esquerda();
+  delay(250);
+  combate();
+}
+
+void lateralD()
+{
+  Serial.println("Estratégia 'Capitalista' acionada.");
+  start();
+  direita();
+  delay(250);
+  combate();
+}
+
+void costas()
+{
+  Serial.println("Estratégia 'Foguete não dá ré' acionada.");
+  start();
+  direita();
+  delay(500);
+  combate();
+}
+
+void estrategias(unsigned long cod)
+{
+  //===============IDENTIFICAÇÃO DE ESTRATÉGIAS==================
+    if (cod == IR_CODE_TOGGLE || cod == IR_CODE_UP || cod == IR_CODE_SOURCE) start();
+
+    else if (!enabled)
+    {
+      if(cod == IR_CODE_LEFT)
+      {
+        stage = 1;
+        lateralE();
+      }
+
+      else if(cod == IR_CODE_RIGHT)
+      {
+        stage = 2;
+        lateralD();
+      }
+
+      else if(cod == IR_CODE_DOWN)
+      {
+        stage = 3;
+        costas();
+      }
+    }
+}
+
+void combate()
+{
+  //===============COMBATE==================
+
+  // --- Se desligado, não faz nada ---
+  if (!enabled) {
+    parar();
+    delay(500);
+    return;
+  }
+
+    frente();
+    linha();
+    
+  if(digitalRead(IRD)==LOW)
+  {
+    direita();
+  }
+  if(digitalRead(IRE)==LOW)
+  {
+    esquerda();
+  }
+  if(digitalRead(IRF)==LOW)
+  {
+    frente_forte();
   }
 }

@@ -46,5 +46,12 @@ int valorSensorE = 0;
 
 // ---------------- Controle remoto IR ----------------
 #define IR_PIN 2   // pino do receptor IR
-unsigned long IR_CODE_TOGGLE = 0x8E8F; // seu botão configurado
+unsigned long IR_CODE_TOGGLE = 0x8E8F; // Botão Ligar
+unsigned long IR_CODE_SOURCE = 0x888F; // Botão Source
+unsigned long IR_CODE_UP = 0x948F; // Botão Cima
+unsigned long IR_CODE_RIGHT = 0x928F; // Botão Direita
+unsigned long IR_CODE_DOWN = 0x958F; // Botão Baixo
+unsigned long IR_CODE_LEFT = 0x938F; // Botão Esquerda
 bool enabled = false; // estado inicial (desligado)
+const int tempoInicial = 5000; // tempo de espera para o início do combate, conforme as regras do campeonato (5s);
+int stage = 0; // estágio que definem as estratégias de combate;
